@@ -33,7 +33,7 @@ jobs:
 
       - name: Archive Extent Report (optional)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: extent-report
           path: test-output/reports
