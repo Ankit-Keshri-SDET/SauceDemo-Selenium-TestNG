@@ -1,0 +1,39 @@
+name: CI Pipeline - SauceDemo Selenium TestNG
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build and Run Tests
+        run: mvn clean test
+
+      - name: Archive Extent Report (optional)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: extent-report
+          path: test-output/reports
