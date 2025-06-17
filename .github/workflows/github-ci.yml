@@ -1,4 +1,4 @@
-name: CI Pipeline - SauceDemo Selenium TestNG
+name: Selenium TestNG CI
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 21
-        uses: actions/upload-artifact@v4
+        uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
@@ -26,14 +26,23 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            ${{ runner.os }}-maven
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb || sudo apt --fix-broken install -y
 
       - name: Build and Run Tests
         run: mvn clean test
 
-      - name: Archive Extent Report (optional)
+      - name: Archive Extent Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
-          path: test-output/reports
+          path: test-output
+          if-no-files-found: warn
+          retention-days: 5
