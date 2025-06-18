@@ -45,8 +45,9 @@ public class BasePage {
         hamburgerMenuBtn.click();
     }
 
-    public void clickLogoutButton() {
-        act.pauseUsingAction(logoutBtn, 2000);
+    public void clickLogoutButton() throws InterruptedException {
+        Thread.sleep(3000);
+        logoutBtn.click();
     }
 
     public void clickAboutButton() {

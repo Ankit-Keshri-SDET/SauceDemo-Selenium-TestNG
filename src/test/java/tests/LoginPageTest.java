@@ -15,7 +15,7 @@ public class LoginPageTest extends BaseTest {
     public ProductsPage pp;
 
     @Test(groups = {"sanity"})
-    public void successLogin() {
+    public void successLogin() throws InterruptedException {
         logger.info("Starting test : successLogin");
         lp = new LoginPage(driver);
         logger.info("Driver initialized successfully");

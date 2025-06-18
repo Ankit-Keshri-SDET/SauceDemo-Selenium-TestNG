@@ -13,7 +13,7 @@ public class DataDrivenTests extends BaseTest {
     public ProductsPage pp;
 
     @Test(dataProvider = "loginData", dataProviderClass = utils.DataProviderUtils.class)
-    public void loginDDT(String username, String password) {
+    public void loginDDT(String username, String password) throws InterruptedException {
         logger.info("Starting test : successLogin");
         lp = new LoginPage(driver);
         logger.info("Driver initialized successfully");
