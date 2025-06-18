@@ -25,11 +25,17 @@ public class DriverManager {
         WebDriver webDriver = switch (browser) {
             case "chrome" -> {
                 ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless");
+                options.addArguments("--headless");  // optional: headless for CI
+                options.addArguments("--disable-gpu");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--disable-dev-shm-usage");
+
+                // Create unique user data dir
+                String tempProfile = "/tmp/chrome-profile-" + System.currentTimeMillis();
+                options.addArguments("--user-data-dir=" + tempProfile);
+
                 WebDriverManager.chromedriver().setup();
-                yield new ChromeDriver();
+                yield new ChromeDriver(options);
             }
             case "edge" -> {
                 EdgeOptions options = new EdgeOptions();
@@ -37,8 +43,12 @@ public class DriverManager {
                 options.addArguments("--disable-gpu");
                 options.addArguments("--no-sandbox");
                 options.addArguments("--disable-dev-shm-usage");
+                // Add unique temp user-data-dir
+                String tempProfile = "/tmp/edge-profile-" + System.currentTimeMillis();
+                options.addArguments("--user-data-dir=" + tempProfile);
+
                 WebDriverManager.edgedriver().setup();
-                yield new EdgeDriver();
+                yield new EdgeDriver(options);
             }
             case "firefox" -> {
                 WebDriverManager.firefoxdriver().setup();
