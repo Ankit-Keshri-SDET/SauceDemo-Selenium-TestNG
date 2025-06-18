@@ -26,7 +26,7 @@ public class LoginPageTest extends BaseTest {
         lp.clickHamburgerMenuBtn();
         logger.info("Clicking on Logout button ...");
         lp.clickLogoutButton();
-        Assert.assertEquals(lp.getLogoText(), "Swag Labsss", "Not Login page ..");
+        Assert.assertEquals(lp.getLogoText(), "Swag Labs", "Not Login page ..");
         logger.info("Test ended ... successLogin");
     }
 
