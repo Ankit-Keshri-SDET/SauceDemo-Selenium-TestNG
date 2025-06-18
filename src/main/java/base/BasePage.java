@@ -46,7 +46,6 @@ public class BasePage {
     }
 
     public void clickLogoutButton() {
-        wait.waitForElementToBeClickable(logoutBtn);
         act.pauseUsingAction(logoutBtn, 2000);
     }
 

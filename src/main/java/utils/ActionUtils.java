@@ -14,7 +14,7 @@ public class ActionUtils {
     public void pauseUsingAction(WebElement element, long millis) {
         Actions actions = new Actions(driver);
         actions.pause(java.time.Duration.ofMillis(millis))
-                .click(element)
+                .click(element).build()
                 .perform();
     }
 }
