@@ -3,7 +3,9 @@ package utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
@@ -22,10 +24,19 @@ public class DriverManager {
 
         WebDriver webDriver = switch (browser) {
             case "chrome" -> {
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
                 WebDriverManager.chromedriver().setup();
                 yield new ChromeDriver();
             }
             case "edge" -> {
+                EdgeOptions options = new EdgeOptions();
+                options.addArguments("--headless");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
                 WebDriverManager.edgedriver().setup();
                 yield new EdgeDriver();
             }
