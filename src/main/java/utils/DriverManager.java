@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 
@@ -51,8 +52,17 @@ public class DriverManager {
                 yield new EdgeDriver(options);
             }
             case "firefox" -> {
-                WebDriverManager.firefoxdriver().setup();
-                yield new FirefoxDriver();
+                FirefoxOptions options = new FirefoxOptions();
+                options.addArguments("--headless");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                // Add unique temp user-data-dir
+                String tempProfile = "/tmp/firefox-profile-" + System.currentTimeMillis();
+                options.addArguments("--user-data-dir=" + tempProfile);
+
+                WebDriverManager.edgedriver().setup();
+                yield new FirefoxDriver(options);
             }
             default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
         };
