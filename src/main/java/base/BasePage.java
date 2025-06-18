@@ -17,7 +17,7 @@ public class BasePage {
 
     @FindBy(id = "react-burger-menu-btn")
     protected WebElement hamburgerMenuBtn;
-    @FindBy(linkText = "Logout")
+    @FindBy(id = "logout_sidebar_link")
     private WebElement logoutBtn;
     @FindBy(id = "about_sidebar_link")
     private WebElement aboutBtn;
@@ -47,7 +47,7 @@ public class BasePage {
 
     public void clickLogoutButton() {
         wait.waitForElementToBeClickable(logoutBtn);
-        logoutBtn.click();
+        act.pauseUsingAction(logoutBtn, 2000);
     }
 
     public void clickAboutButton() {
