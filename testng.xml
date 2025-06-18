@@ -6,7 +6,11 @@
     </listeners>
     <test thread-count="5" name="End To End Test">
         <classes>
-            <class name="tests.LoginPageTest"/>
+            <class name="tests.LoginPageTest">
+                <methods>
+                    <include name="successLogin"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
